@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import DashboardFooter from "../ui/DashboardFooter";
-import DashboardHeader from "../ui/DashboardHeader";
-import DashboardSidebar from "../ui/DashboardSidebar";
+import DashboardFooter from "../dashboardKits/DashboardFooter";
+import DashboardHeader from "../dashboardKits/DashboardHeader";
+import DashboardSidebar from "../dashboardKits/DashboardSidebar";
 
 const DashboardWrapper = ({children, title}) => {
     useEffect(() => {

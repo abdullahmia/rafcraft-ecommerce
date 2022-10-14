@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiGridAlt, BiNews } from 'react-icons/bi';
+import { BiCart, BiCategoryAlt, BiGridAlt, BiNews } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 
 const DashboardSidebar = () => {
@@ -36,7 +36,7 @@ const DashboardSidebar = () => {
                                   }
                                   end={true}
                               >
-                                  <BiGridAlt className="w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" />
+                                  <BiCategoryAlt className="w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" />
                                   <span className="ml-4">Categories</span>
                               </NavLink>
 
@@ -51,6 +51,19 @@ const DashboardSidebar = () => {
                               >
                                   <BiGridAlt className="w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" />
                                   <span className="ml-4">Products</span>
+                              </NavLink>
+
+                              <NavLink
+                                  to="/dashboard/order"
+                                  className={(navInfo) =>
+                                      navInfo.isActive
+                                          ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
+                                          : "text-base text-gray-700 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
+                                  }
+                                  end={true}
+                              >
+                                  <BiCart className="w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" />
+                                  <span className="ml-4">Orders</span>
                               </NavLink>
                           </div>
                       </div>

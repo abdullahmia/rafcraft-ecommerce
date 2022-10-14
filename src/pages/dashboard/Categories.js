@@ -146,7 +146,7 @@ const Categories = () => {
                       </div>
                 </div>
 
-                <div className='lg:col-span-5 colspan-12'>
+                <div className='lg:col-span-5 col-span-12'>
                     <AddCategoryForm />
                 </div>
             </div>

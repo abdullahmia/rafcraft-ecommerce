@@ -64,6 +64,16 @@ const Header = () => {
               <div className="text-xs leading-3">Cart</div>
             </Link>
 
+            <Link
+              to="/account"
+              className="block text-center text-gray-700 hover:text-primary transition"
+            >
+              <div className="text-2xl">
+                <i className="far fa-user"></i>
+              </div>
+              <div className="text-xs leading-3">Account</div>
+            </Link>
+
             {
               user && <Link
                 to="/account"
@@ -162,13 +172,28 @@ const Header = () => {
                 </a>
               </div>
 
+              <div>
+                <Link
+                  to="/login"
+                  className="justify-self-end text-gray-200 hover:text-white transition"
+                >
+                  Login/Register
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className="ml-4 justify-self-end text-gray-200 hover:text-white transition"
+                >
+                  Dashboard
+                </Link>
+              </div>
+
               
-              {!user && <Link
+              {/* {!user && <Link
                 to="/login"
-                className="ml-auto justify-self-end text-gray-200 hover:text-white transition"
+                className="justify-self-end text-gray-200 hover:text-white transition"
               >
                 Login/Register
-              </Link>}
+              </Link>} */}
               
             </div>
             {/* <!-- nav menu end --> */}

@@ -21,6 +21,8 @@ import Wishlist from "../pages/Wishlist";
 import AddProduct from "../pages/dashboard/AddProduct";
 import Categories from "../pages/dashboard/Categories";
 import Dashboard from "../pages/dashboard/Dashboard";
+import Order from "../pages/dashboard/Order";
+import OrderDetail from "../pages/dashboard/OrderDetail";
 import Products from "../pages/dashboard/Products";
 
 export const routes = [
@@ -67,7 +69,7 @@ export const routes = [
   // auth routes
   {
     path: "/account",
-    role: ["user"],
+    role: ["*"],
     children: [
       {
         path: "/",
@@ -101,7 +103,7 @@ export const routes = [
   },
   {
     path: "/dashboard",
-    role: ["admin"],
+    role: ["*"],
     children: [
       {
         path: '',
@@ -118,12 +120,15 @@ export const routes = [
       {
         path: 'categories',
         element: Categories
+      },
+      {
+        path: 'order',
+        element: Order,
+      },
+      {
+        path: 'order/:orderId',
+        element: OrderDetail
       }
     ]
   },
-  // {
-  //   path: "/profile-info",
-  //   element: ProfileInfo,
-  //   role: ["*"],
-  // },
 ];
