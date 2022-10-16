@@ -20,6 +20,7 @@ import Wishlist from "../pages/Wishlist";
 // Dashboard Routes
 import AddProduct from "../pages/dashboard/AddProduct";
 import Categories from "../pages/dashboard/Categories";
+import Customers from "../pages/dashboard/Customers";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Order from "../pages/dashboard/Order";
 import OrderDetail from "../pages/dashboard/OrderDetail";
@@ -128,6 +129,10 @@ export const routes = [
       {
         path: 'order/:orderId',
         element: OrderDetail
+      },
+      {
+        path: 'customers',
+        element: Customers
       }
     ]
   },
