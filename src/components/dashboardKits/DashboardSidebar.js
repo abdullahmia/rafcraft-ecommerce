@@ -15,7 +15,7 @@ const DashboardSidebar = () => {
                       <div className="flex-1 px-3 bg-white divide-y space-y-1">
                           <div className="space-y-2 pt-2">
                               <NavLink
-                                  to="/dashboard"
+                                  to="/admin"
                                   className={(navInfo) =>
                                       navInfo.isActive
                                           ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
@@ -28,7 +28,7 @@ const DashboardSidebar = () => {
                               </NavLink>
 
                               <NavLink
-                                  to="/dashboard/categories"
+                                  to="/admin/categories"
                                   className={(navInfo) =>
                                       navInfo.isActive
                                           ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
@@ -41,7 +41,7 @@ const DashboardSidebar = () => {
                               </NavLink>
 
                               <NavLink
-                                  to="/dashboard/product"
+                                  to="/admin/product"
                                   className={(navInfo) =>
                                       navInfo.isActive
                                           ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
@@ -54,7 +54,7 @@ const DashboardSidebar = () => {
                               </NavLink>
 
                               <NavLink
-                                  to="/dashboard/order"
+                                  to="/admin/order"
                                   className={(navInfo) =>
                                       navInfo.isActive
                                           ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
@@ -67,7 +67,7 @@ const DashboardSidebar = () => {
                               </NavLink>
 
                               <NavLink
-                                  to="/dashboard/customers"
+                                  to="/admin/customers"
                                   className={(navInfo) =>
                                       navInfo.isActive
                                           ? "text-base text-gray-900 bg-gray-100 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"

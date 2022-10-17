@@ -70,7 +70,7 @@ export const routes = [
   // auth routes
   {
     path: "/account",
-    role: ["*"],
+    role: ["user"],
     children: [
       {
         path: "/",
@@ -103,8 +103,8 @@ export const routes = [
     ],
   },
   {
-    path: "/dashboard",
-    role: ["*"],
+    path: "/admin",
+    role: ["admin"],
     children: [
       {
         path: '',

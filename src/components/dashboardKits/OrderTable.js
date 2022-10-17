@@ -51,7 +51,7 @@ const OrderTable = () => {
             <h2 className='bg-green-500 text-center rounded py-2 text-white'>Completed</h2>
           </td>
           <td className='py-4 px-6'>
-            <Link to='/dashboard/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
+            <Link to='/admin/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
           </td>
         </tr>
         <tr className="bg-white border-b hover:bg-gray-50">
@@ -75,7 +75,7 @@ const OrderTable = () => {
             <h2 className='bg-blue-500 text-center rounded py-2 text-white capitalize'>in progress</h2>
           </td>
           <td className='py-4 px-6'>
-            <Link to='/dashboard/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
+            <Link to='/admin/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
           </td>
         </tr>
         <tr className="bg-white border-b hover:bg-gray-50">
@@ -99,7 +99,7 @@ const OrderTable = () => {
             <h2 className='bg-yellow-500 text-center rounded py-2 text-white capitalize'>Canceled</h2>
           </td>
           <td className='py-4 px-6'>
-            <Link to='/dashboard/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
+            <Link to='/admin/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
           </td>
         </tr>
         <tr className="bg-white border-b hover:bg-gray-50">
@@ -123,7 +123,7 @@ const OrderTable = () => {
             <h2 className='bg-green-500 text-center rounded py-2 text-white'>Completed</h2>
           </td>
           <td className='py-4 px-6'>
-            <Link to='/dashboard/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
+            <Link to='/admin/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
           </td>
         </tr>
         <tr className="bg-white border-b hover:bg-gray-50">
@@ -147,7 +147,7 @@ const OrderTable = () => {
             <h2 className='bg-blue-500 text-center rounded py-2 text-white capitalize'>in progress</h2>
           </td>
           <td className='py-4 px-6'>
-            <Link to='/dashboard/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
+            <Link to='/admin/order/asfasfsf' className='submit-btn w-16 capitalize'>view</Link>
           </td>
         </tr>
       </tbody>

@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AdminRoute from "../routes/AdminRoute";
 import PrivateRoute from "../routes/PrivateRoute";
 import { routes } from "../routes/routes";
 
@@ -63,12 +64,12 @@ const Main = () => {
               {
                 route.children ? (
                   route.children.map((subRoute, i) => subRoute.role === '/' ? (
-                    <Route key={i} index={true} element={<subRoute.element/>} />
+                    <Route key={i} index={true} element={<AdminRoute><subRoute.element /></AdminRoute>} />
                   ) : (
-                    <Route key={i} index={false} path={subRoute.path} element={<subRoute.element />} />
+                      <Route key={i} index={false} path={subRoute.path} element={<AdminRoute><subRoute.element /></AdminRoute>} />
                   ))
                 ) : (
-                  <Route path={route.path} element={<route.element />} />
+                    <Route path={route.path} element={<AdminRoute><route.element /></AdminRoute>} />
                 )
               }
             </Route>
