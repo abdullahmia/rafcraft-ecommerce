@@ -1,8 +1,17 @@
 import { BiLogOut } from 'react-icons/bi';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/images/logo.svg";
+import { userLoggedOut } from '../../features/auth/authSlice';
 
 const DashboardHeader = () => {
+    const dispatch = useDispatch();
+
+    // logout
+    const logout = () => {
+        dispatch(userLoggedOut());
+        localStorage.clear();
+    }
   return (
       <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
           <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -51,6 +60,7 @@ const DashboardHeader = () => {
                   </div>
                   <div className="flex items-center">
                       <button
+                          onClick={logout}
                           className="submit-btn"
                       >
                           <BiLogOut className='font-bold text-lg mr-2' />
