@@ -1,15 +1,41 @@
+import { BiEdit, BiTrash } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import productImg from '../../assets/images/products/product1.jpg';
+import Swal from 'sweetalert2';
 import DashboardWrapper from "../../components/layouts/DashboardWrapper";
 import DashboardProductFilter from '../../components/shop/DashboardProductFilter';
+import Image from '../../components/ui/Image';
+import { useDeleteProductMutation, useGetAllProductsQuery } from '../../features/product/productApi';
 
 const Products = () => {
+    const { data: products } = useGetAllProductsQuery();
+
+    // delete products
+    const [deleteProduct] = useDeleteProductMutation();
+
+    const deleteProductHandler = (slug) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Deleted!', "Prouct has been deleted!", 'success');
+                deleteProduct(slug)
+            }
+        })
+        
+    }
+
   return (
     <DashboardWrapper title="Products | Dashboard">
           <div className='mt-5 mx-5'>
               <div className='flex items-center gap-5 mb-7'>
                   <h3 className='text-xl font-semibold'>Product</h3>
-                  <Link className="submit-btn" to="/dashboard/product/new">Add Product</Link>
+                  <Link className="submit-btn" to="/admin/product/new">Add Product</Link>
               </div>
 
               {/* Product filter */}
@@ -26,127 +52,67 @@ const Products = () => {
                                   Product
                               </th>
                               <th scope="col" className="py-3 px-6">
-                                  Qty
+                                  Category
+                              </th>
+                              <th scope="col" className="py-3 px-6">
+                                  SKU
+                              </th>
+                              <th scope="col" className="py-3 px-6">
+                                  Brand
                               </th>
                               <th scope="col" className="py-3 px-6">
                                   Price
                               </th>
                               <th scope="col" className="py-3 px-6">
-                                  Action
+                                  Status
+                              </th>
+                              <th scope="col" className="py-3 px-6">
+                                  Update
+                              </th>
+                              <th scope="col" className="py-3 px-6">
+                                  Delete
                               </th>
                           </tr>
                       </thead>
                       <tbody>
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
+                        {
+                            products?.map((product, key) => (
+                                <tr key={key} className="bg-white border-b hover:bg-gray-50">
+                                    <td className="p-4 w-32">
+                                        <Image url={product.image} className="w-28 h-[70px]" alt="Apple Watch" />
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                                        {product.name}
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                                        {product.category.name}
+                                    </td>
 
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 uppercase">
+                                        {product.sku}
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 uppercase">
+                                        {product.brand}
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 uppercase">
+                                        $ {product.price}
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 uppercase">
+                                        {product.status ? 'Published' : 'Draft'}
+                                    </td>
+                                    <td className="py-4 px-6 font-semibold text-gray-900 uppercase">
+                                        <Link className="font-medium hover:underline" to={`/admin/product/${product.slug}`}><BiEdit className='text-green-500 text-lg' /></Link>
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <button onClick={() => deleteProductHandler(product.slug)} className="font-medium hover:underline">
+                                            <BiTrash className='text-red-500 text-lg' />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                          
 
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
-
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
-
-                          <tr className="bg-white border-b hover:bg-gray-50">
-                              <td className="p-4 w-32">
-                                  <img src={productImg} className="w-28 h-[70px]" alt="Apple Watch" />
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  Apple Watch
-                              </td>
-
-                              <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                  $599
-                              </td>
-                              <td className="py-4 px-6">
-                                  <Link to="" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</Link>
-                              </td>
-                          </tr>
 
                       </tbody>
                   </table>

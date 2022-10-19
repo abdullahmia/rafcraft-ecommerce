@@ -1,9 +1,20 @@
 import { Editor } from '@tinymce/tinymce-react';
+import cogoToast from 'cogo-toast';
 import { useRef, useState } from 'react';
-import { BiX } from 'react-icons/bi';
+import { BiLoader, BiX } from 'react-icons/bi';
 import DashboardWrapper from '../../components/layouts/DashboardWrapper';
+import { useGetAllCategoriesQuery } from '../../features/category/categoryApi';
+import { useAddProductMutation } from '../../features/product/productApi';
 
 const AddProduct = () => {
+    const [name, setName] = useState('');
+    const [brand, setBrand] = useState('');
+    const [price, setPrice] = useState('');
+    const [shortDescription, setShortDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [status, setStatus] = useState(true);
+    const [availability, setAvailability] = useState(0);
+
     const descriptionRef = useRef(null);
     const [image, setImage] = useState(null);
     const filePickerRef = useRef(null);
@@ -14,6 +25,54 @@ const AddProduct = () => {
             setImage(e.target.files[0]);
         }
     };
+
+    // get all categories
+    const { data: categories } = useGetAllCategoriesQuery();
+
+    // add product submit handler
+    const [addProduct, {isLoading}] = useAddProductMutation();
+
+    const formRest = () => {
+        setName("");
+        setImage("");
+        setBrand("");
+        setPrice("");
+        setShortDescription("");
+        setAvailability("");
+        setCategory("");
+    } 
+
+    const addProductHandler = (e) => {
+        e.preventDefault();
+
+        if (descriptionRef.current) {
+            let description = descriptionRef.current.getContent();
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('brand', brand);
+            formData.append('price', price);
+            formData.append('shortDescription', shortDescription);
+            formData.append('category', category);
+            formData.append('status', status);
+            formData.append('image', image);
+            formData.append('description', description);
+            formData.append('availability', availability);
+
+            addProduct(formData).then((result) => {
+                if (result?.data) {
+                    cogoToast.success(result.data.message);
+
+                    const form = document.getElementById('productForm');
+                    form.reset();
+                    formRest();
+                }
+            })
+
+        }
+    }
+
+
   return (
     <DashboardWrapper title="Add Product | Dashboard">
         <div className='m-5'>
@@ -21,27 +80,32 @@ const AddProduct = () => {
                 <h3 className='text-xl font-medium uppercase text-gray-800'>Add New Product</h3>
             </div>
 
-            <form>
+              <form id="productForm" onSubmit={addProductHandler}>
                 <div className='w-full grid grid-cols-12 gap-4'>
                     <div className='lg:col-span-8 col-span-12 shadow rounded p-5'>
                         <div className='flex flex-col gap-6'>
                             <div>
-                                  <label className='text-sm text-gray-700 block mb-2'>Product Title <span className="text-primary">*</span></label>
-                                <input type="text" className='input-box' />
+                                  <label className='text-sm text-gray-700 block mb-2'>Product Name <span className="text-primary">*</span></label>
+                                <input type="text" value={name} onChange={e => setName(e.target.value)} className='input-box' />
                             </div>
                             <div>
                                   <label className='text-sm text-gray-700 block mb-2'>Brand <span className="text-primary">*</span></label>
-                                <input type="text" className='input-box' />
+                                  <input type="text" value={brand} onChange={e => setBrand(e.target.value)} className='input-box' />
                             </div>
 
                             <div>
                                   <label className='text-sm text-gray-700 block mb-2'>Price <span className="text-primary">*</span></label>
-                                <input type="number" className='input-box' />
+                                  <input type="number" value={price} onChange={e => setPrice(e.target.value)} className='input-box' />
+                            </div>
+
+                            <div>
+                                <label className='text-sm text-gray-700 block mb-2'>availability <span className="text-primary">*</span></label>
+                                  <input type="number" value={availability} onChange={e => setAvailability(e.target.value)} className='input-box' />
                             </div>
 
                             <div>
                                   <label className='text-sm text-gray-700 block mb-2'>Short Descriptions <span className="text-primary">*</span></label>
-                                <textarea type="text" className='input-box' />
+                                  <textarea type="text" value={shortDescription} onChange={e => setShortDescription(e.target.value)} className='input-box' />
                             </div>
 
                             <div>
@@ -49,7 +113,6 @@ const AddProduct = () => {
                                 <Editor
                                     apiKey='zx9qjz9qf0gjnq103237dl4yq062dcl966d4af5ktfttloa1'
                                     onInit={(evt, editor) => descriptionRef.current = editor}
-                                    initialValue='<p>Product Description will be here....</p>'
                                     init={{
                                         height: 500,
                                         menubar: false,
@@ -67,20 +130,22 @@ const AddProduct = () => {
                     <div className='lg:col-span-4 col-span-12 p-3'>
                         <div className='bg-white shadow-sm rounded flex flex-wrap justify-between items-center p-4'>
                             <h2 className='text-gray-700 mb-2'>Product Status</h2>
-                              <div className="flex justify-end items-center gap-3">
-                                <button className='submit-outline-btn'>Save Draft</button>
-                                <button className='submit-btn'>Publish</button>
-                            </div>
+                              <select className='input-box mt-2' value={status} onChange={e => setStatus(e.target.value)} required>
+                                <option value={false}>Save as draft</option>
+                                <option value={true}>Publish</option>
+                              </select>
                         </div>
 
                         <div className='bg-white shadow-sm rounded p-4 mt-5'>
                             <h2 className='text-gray-700'>Category</h2>
                             
-                              <select className='input-box mt-2' required>
-                                  <option value="">Cloths</option>
-                                  <option value="">Male</option>
-                                  <option value="">Female</option>
-                                  <option value="">Female</option>
+                              <select className='input-box mt-2' value={category} onChange={e => setCategory(e.target.value)} required>
+                                <option selected>Select Category</option>
+                                {
+                                    categories?.map((category, key) => (
+                                        <option key={key} value={category._id}>{category.name}</option>
+                                    ))
+                                }
                               </select>
                         </div>
 
@@ -137,7 +202,7 @@ const AddProduct = () => {
                                               ref={filePickerRef}
                                           />
                                           <button
-                                              className="submit-btn"
+                                              className="underline"
                                               onClick={(e) => {
                                                   e.preventDefault();
                                                   filePickerRef.current.click();
@@ -149,6 +214,14 @@ const AddProduct = () => {
                                   </div>
                             }
 
+                        </div>
+
+                        <div className='mt-5'>
+                              <button type='submit' disabled={isLoading} className='submit-btn flex justify-center gap-3 capitalize w-full'>
+                                  {
+                                    isLoading ? <BiLoader className='animate-spin' /> : <span>Add Product</span>
+                                  }
+                              </button>
                         </div>
 
                     </div>

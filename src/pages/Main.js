@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AdminRoute from "../routes/AdminRoute";
 import PrivateRoute from "../routes/PrivateRoute";
 import { routes } from "../routes/routes";
@@ -33,6 +33,8 @@ const Main = () => {
             )}
           </Route>
         ))}
+
+        <Route path="*" element={<Navigate to="/404" replace />} />
 
         {/* auth routes */}
         

@@ -3,6 +3,7 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 import OrderComplete from "../pages/OrderComplete";
 import Product from "../pages/Product";
 import Register from "../pages/Register";
@@ -22,6 +23,7 @@ import AddProduct from "../pages/dashboard/AddProduct";
 import Categories from "../pages/dashboard/Categories";
 import Customers from "../pages/dashboard/Customers";
 import Dashboard from "../pages/dashboard/Dashboard";
+import EditProduct from "../pages/dashboard/EditProduct";
 import Order from "../pages/dashboard/Order";
 import OrderDetail from "../pages/dashboard/OrderDetail";
 import Products from "../pages/dashboard/Products";
@@ -38,7 +40,7 @@ export const routes = [
     role: ["*"],
   },
   {
-    path: "/:productSlug",
+    path: "/:slug",
     element: Product,
     role: ["*"],
   },
@@ -119,6 +121,10 @@ export const routes = [
         element: AddProduct
       },
       {
+        path: 'product/:slug',
+        element: EditProduct
+      },
+      {
         path: 'categories',
         element: Categories
       },
@@ -136,4 +142,9 @@ export const routes = [
       }
     ]
   },
+  {
+    path: '/404',
+    element: NotFound,
+    role: ['*']
+  }
 ];

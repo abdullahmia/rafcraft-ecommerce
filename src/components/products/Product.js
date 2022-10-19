@@ -1,42 +1,41 @@
-import { Link } from "react-router-dom";
-import productImg from "../../assets/images/products/product1.jpg";
+import { NavLink } from "react-router-dom";
+import Image from "../ui/Image";
 
-const Product = () => {
+const Product = ({product = {}}) => {
+  const { name, image, price, slug } = product;
   return (
     <div className="group rounded bg-white shadow overflow-hidden">
       {/* <!-- product image --> */}
       <div className="relative">
-        <img src={productImg} className="w-full" alt="Product" />
+        <Image url={image} className="w-full h-60" alt="Product" />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-          <Link
-            to="/product-page"
+          <NavLink
+            to={`/${slug}`}
             className="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center"
           >
             <i className="fas fa-search"></i>
-          </Link>
-          <Link
-            to="/product-page"
+          </NavLink>
+          <NavLink
+            to={`/${slug}`}
             className="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center"
           >
             <i className="far fa-heart"></i>
-          </Link>
+          </NavLink>
         </div>
       </div>
       {/* <!-- product image end -->
                   <!-- product content --> */}
       <div className="pt-4 pb-3 px-4">
-        <Link to="/product-page">
+        <NavLink to={`/${slug}`}>
           <h4 className="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
-            Guyer chair
+            {name.slice(0, 17)}..
           </h4>
-        </Link>
+        </NavLink>
         <div className="flex items-baseline mb-1 space-x-2">
           <p className="text-xl text-primary font-roboto font-semibold">
-            $45.00
+            ${price}
           </p>
-          <p className="text-sm text-gray-400 font-roboto line-through">
-            $55.00
-          </p>
+
         </div>
         <div className="flex items-center">
           <div className="flex gap-1 text-sm text-yellow-400">
@@ -61,12 +60,12 @@ const Product = () => {
       </div>
       {/* <!-- product content end -->
                   <!-- product button --> */}
-      <a
+      <button
         href="#"
         className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
       >
         Add to Cart
-      </a>
+      </button>
       {/* <!-- product button end --> */}
     </div>
   );

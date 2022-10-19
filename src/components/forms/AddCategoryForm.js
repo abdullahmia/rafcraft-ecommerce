@@ -158,7 +158,7 @@ const AddCategoryForm = () => {
                               />
                               <button
 
-                                  className="submit-btn"
+                                  className="underline"
                                   onClick={(e) => {
                                       e.preventDefault();
                                       filePickerRef.current.click();

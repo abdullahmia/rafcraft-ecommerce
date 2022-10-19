@@ -4,7 +4,7 @@ import Category from './Category';
 
 const Categories = () => {
     const {data: categories, isLoading} = useGetAllCategoriesQuery();
-    console.log(categories);
+
   return (
       <div class="container py-16">
           <h2 class="text-3xl font-medium text-gray-800 uppercase mb-6">
