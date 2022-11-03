@@ -10,7 +10,6 @@ import Register from "../pages/Register";
 import Shop from "../pages/Shop";
 
 // auth routes
-import Account from "../pages/Account";
 import ChangePassword from "../pages/ChangePassword";
 import ManageAddress from "../pages/ManageAddress";
 import MyReviews from "../pages/MyReviews";
@@ -76,7 +75,7 @@ export const routes = [
     children: [
       {
         path: "/",
-        element: Account,
+        element: ProfileInfo,
       },
       {
         path: "profile-info",

@@ -47,21 +47,12 @@ const AccountWrapper = ({ children }) => {
               }
               end={true}
             >
-              Manage account
+              Profile Informaton
               <span className="absolute -left-8 top-0 text-base">
                 <i className="far fa-address-card"></i>
               </span>
             </NavLink>
-            <NavLink
-              to="/account/profile-info"
-              className={(navInfo) =>
-                navInfo.isActive
-                  ? "relative text-base font-medium capitalize hover:text-primary transition block text-primary"
-                  : "hover:text-primary transition capitalize block"
-              }
-            >
-              Profile information
-            </NavLink>
+            
             <NavLink
               to="/account/manage-address"
               className={(navInfo) =>

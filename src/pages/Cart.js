@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Bredcrum from "../components/Bredcrum";
 import CartProduct from "../components/CartProduct";
 import CartEmpty from "../components/empty/CartEmpty";
 import Wrapper from "../components/layouts/Wrapper";
+import useAuth from "../hooks/useAuth";
 
 const Cart = () => {
   const {products, totalPrice} = useSelector((state) => state.cart);
+  const isUserLogin = useAuth();
   return (
     <Wrapper title="Cart | RAFCRAFT">
       <Bredcrum name="Cart" />
@@ -76,14 +79,17 @@ const Cart = () => {
           </div> */}
               {/* <!-- searchbar end --> */}
 
-              {/* <!-- checkout --> */}
-              <a
-                href="checkout.html"
-                className="bg-primary border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
+              {/* <!-- checkout --> */} 
+              {
+                isUserLogin ? <Link
+                  to="/checkout"
+                  className="bg-primary border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
              hover:text-primary transition text-sm w-full block text-center"
-              >
-                Process to checkout
-              </a>
+                >
+                  Process to checkout
+                </Link> : <Link to="/login" className="text-primary hover:text-red-700  text-sm block text-center">Need login to checkout</Link>
+              }
+              
               {/* <!-- checkout end --> */}
             </div>
           </div>
