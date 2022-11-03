@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import bed from "../assets/images/icons/bed.svg";
 import office from "../assets/images/icons/office.svg";
@@ -8,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 
 const Header = () => {
   const user = useAuth();
+  const { totalItems } = useSelector((state) => state.cart);
   return (
     <>
       <header className="py-4 shadow-sm bg-pink-100 lg:bg-white">
@@ -56,7 +58,7 @@ const Header = () => {
               className="lg:block text-center text-gray-700 hover:text-primary transition hidden relative"
             >
               <span className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                3
+                {totalItems}
               </span>
               <div className="text-2xl">
                 <i className="fas fa-shopping-bag"></i>

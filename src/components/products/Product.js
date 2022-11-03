@@ -1,8 +1,17 @@
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { addToCart } from "../../features/cart/cartSlice";
 import Image from "../ui/Image";
 
 const Product = ({product = {}}) => {
   const { name, image, price, slug } = product;
+  const dispatch = useDispatch();
+
+  // add to cart
+  const addCartProduct = () => {
+    dispatch(addToCart(product));
+  }
+
   return (
     <div className="group rounded bg-white shadow overflow-hidden">
       {/* <!-- product image --> */}
@@ -61,7 +70,7 @@ const Product = ({product = {}}) => {
       {/* <!-- product content end -->
                   <!-- product button --> */}
       <button
-        href="#"
+        onClick={addCartProduct}
         className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
       >
         Add to Cart
