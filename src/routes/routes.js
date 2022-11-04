@@ -54,7 +54,7 @@ export const routes = [
     role: ["*"],
   },
   {
-    path: "/order-complete",
+    path: "/order-complete/:orderId",
     element: OrderComplete,
     role: ["*"],
   },
