@@ -1,9 +1,8 @@
-import { useParams } from "react-router-dom";
 import productImg from '../../assets/images/products/product11.jpg';
 import DashboardWrapper from "../../components/layouts/DashboardWrapper";
 
 const OrderDetail = () => {
-    const { orderId } = useParams();
+    // const { orderId } = useParams();
     
   return (
     <DashboardWrapper title="Edit Order">

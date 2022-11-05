@@ -7,7 +7,7 @@ const Category = ({category}) => {
       <div className="relative rounded-sm overflow-hidden group">
           <Image
               url={image}
-              className="w-full"
+              className="w-full h-[300px] object-contain rounded"
               alt=""
           />
           <Link

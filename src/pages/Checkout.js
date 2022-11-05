@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Bredcrum from "../components/Bredcrum";
 import CartEmpty from "../components/empty/CartEmpty";
 import Wrapper from "../components/layouts/Wrapper";
+import CheckoutLoader from '../components/loaders/CheckoutLoader';
 import { useGetAddressQuery } from "../features/address/addressApi";
 import { clearCart } from "../features/cart/cartSlice";
 import { useAddOrderMutation } from "../features/order/orderApi";
@@ -53,12 +54,11 @@ const Checkout = () => {
 
   const addOrderHandler = (e) => {
     e.preventDefault();
-    addOrder({ products: cartProduct, paymentType, shippingAddress: { country, address, city, zipCode, number, email }, amount: totalPrice, customerNote})
+    addOrder({ products: cartProduct, paymentType, shippingAddress: { country, address, city, zipCode, number, email }, amount: totalPrice, customerNote, _id: user.id })
   }
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(orderSuccess);
       if (orderSuccess.orderd) {
         dispatch(clearCart());
         cogoToast.success(orderSuccess.message);
@@ -70,12 +70,13 @@ const Checkout = () => {
   
   return (
     <Wrapper title="Checkout | RAFCRAFT">
+      
       <Bredcrum name="Checkout" />
       {
         products?.length === 0 ? <CartEmpty /> : (
           <>
             {
-              addressLoading ? <h2>Loading....</h2> : <div className="container lg:grid grid-cols-12 gap-6 items-start pt-4 pb-16">
+              addressLoading ? <CheckoutLoader /> : <div className="container lg:grid grid-cols-12 gap-6 items-start pt-4 pb-16">
                 {/* <!-- checkout form --> */}
                 <div className="lg:col-span-8 border p-4 rounded">
                   <h3 className="text-lg font-medium capitalize mb-4 text-gray-800">
@@ -194,7 +195,7 @@ const Checkout = () => {
                     </select>
                   </div>
 
-                  <button onClick={addOrderHandler} className="mt-2 block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-medium font-roboto">
+                  <button onClick={addOrderHandler} disabled={isLoading} className="mt-2 block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-medium font-roboto">
                     place order
                   </button>
                 </div>

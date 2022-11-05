@@ -1,3 +1,4 @@
+import cogoToast from "cogo-toast";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { addToCart } from "../../features/cart/cartSlice";
@@ -9,6 +10,7 @@ const Product = ({product = {}}) => {
 
   // add to cart
   const addCartProduct = () => {
+    cogoToast.success('Product added on cart!', { position: 'bottom-right' });
     dispatch(addToCart(product));
   }
 

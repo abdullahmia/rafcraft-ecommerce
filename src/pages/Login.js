@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
+import { BiLoaderAlt } from 'react-icons/bi';
 import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../components/layouts/Wrapper";
 import { useLoginMutation } from "../features/auth/authApi";
@@ -23,16 +24,16 @@ const Login = () => {
      }
 
      if (data?.token && data?.user) {
+      reset();
       navigate('/account');
      }
 
-  }, [data, responseError, navigate, user])
+  }, [data, responseError, navigate, user, reset])
 
   // login handler
   const loginhandler = (data) => {
     setError('');
     login(data);
-    reset();
   }
 
   return (
@@ -93,9 +94,11 @@ const Login = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
+                className="flex items-center justify-center w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
               >
-                Login
+                {
+                  isLoading ? <BiLoaderAlt className="animate-spin" /> : "Login"
+                }
               </button>
             </div>
           </form>

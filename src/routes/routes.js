@@ -13,6 +13,7 @@ import Shop from "../pages/Shop";
 import ChangePassword from "../pages/ChangePassword";
 import ManageAddress from "../pages/ManageAddress";
 import MyReviews from "../pages/MyReviews";
+import UserOrderDetail from "../pages/OrderDetail";
 import OrderHistory from "../pages/OrderHistory";
 import ProfileInfo from "../pages/ProfileInfo";
 import Wishlist from "../pages/Wishlist";
@@ -92,7 +93,12 @@ export const routes = [
       {
         path: "order-history",
         element: OrderHistory,
+      }, 
+      {
+        path: "order-history/:orderId",
+        element: UserOrderDetail,
       },
+
       {
         path: "reviews",
         element: MyReviews,

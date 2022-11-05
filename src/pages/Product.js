@@ -1,9 +1,13 @@
+import cogoToast from "cogo-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import productImg from "../assets/images/products/product1.jpg";
 import Bredcrum from "../components/Bredcrum";
 import Wrapper from "../components/layouts/Wrapper";
+import ProductPageLoader from "../components/loaders/ProductPageLoader";
 import Products from "../components/products/Products";
 import Image from "../components/ui/Image";
+import { addToCart } from "../features/cart/cartSlice";
 import { useGetSingleProductQuery } from "../features/product/productApi";
 
 const Product = () => {
@@ -16,11 +20,19 @@ const Product = () => {
     navigate('/404');
   }
 
+  const dispatch = useDispatch();
+
+  // add to cart
+  const addCartProduct = () => {
+    cogoToast.success('Product added on cart!', { position: 'bottom-right'});
+    dispatch(addToCart(product));
+  }
+
   return (
     <Wrapper title="Product Page">
       {
         isLoading ? (<>
-          Loading...
+          <ProductPageLoader />
         </>) : (
           <>
               <Bredcrum name={"Shop"} name2="Product Name" />
@@ -268,8 +280,8 @@ const Product = () => {
                   </div>
 
                   <div className="flex gap-3 border-b border-gray-200 pb-5 mt-6">
-                    <a
-                      href="#"
+                    <button
+                      onClick={addCartProduct}
                       className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase 
                     hover:bg-transparent hover:text-primary transition text-sm flex items-center"
                     >
@@ -277,7 +289,7 @@ const Product = () => {
                         <i className="fas fa-shopping-bag"></i>
                       </span>{" "}
                       Add to cart
-                    </a>
+                    </button>
                     <a
                       href="#"
                       className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase 

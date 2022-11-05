@@ -58,15 +58,15 @@ const EditProduct = () => {
 
     // add product submit handler
 
-    const formRest = () => {
-        setName("");
-        setImage("");
-        setBrand("");
-        setPrice("");
-        setShortDescription("");
-        setAvailability("");
-        setCategory("");
-    }
+    // const formRest = () => {
+    //     setName("");
+    //     setImage("");
+    //     setBrand("");
+    //     setPrice("");
+    //     setShortDescription("");
+    //     setAvailability("");
+    //     setCategory("");
+    // }
 
     // edit product 
     const [ editProduct, {isLoading} ] = useEditProductMutation();
