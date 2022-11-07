@@ -20,17 +20,47 @@ export const orderApi = apiSlice.injectEndpoints({
                 }
             }
         }),
+
         getUserOrders: builder.query({
             query: (id) => `/order/${id}`,
         }),
+
         getSingleOrder: builder.query({
             query: (id) => `/order/order/${id}`
         }),
+
         getAllOrders: builder.query({
             query: () => `/order`
+        }),
+
+        // update orders
+        updateOrder: builder.mutation({
+            query: ({body, id}) => ({
+                url: `/order/order/${id}`,
+                method: 'PATCH',
+                body: body
+            }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+                const { body, orderId, id } = arg;
+                const { orderNote, orderStatus } = body;
+                const patchResult = dispatch(apiSlice.util.updateQueryData('getSingleOrder', orderId, (draft) => {
+                    draft.orderStatus = orderStatus;
+                    draft.orderNote = orderNote;
+                }));
+                try {
+                    await queryFulfilled;
+                    dispatch(apiSlice.util.updateQueryData('getAllOrders', undefined, (draft) => {
+                        let draftedOrder = draft.find((order) => order._id === id);
+                        draftedOrder.orderStatus = orderStatus;   
+                        draftedOrder.orderNote = orderNote;   
+                    }))
+                } catch {
+                    patchResult.undo();
+                }
+            }
         })
     })
 })
 
 
-export const { useAddOrderMutation, useGetUserOrdersQuery, useGetSingleOrderQuery, useGetAllOrdersQuery } = orderApi;
+export const { useAddOrderMutation, useGetUserOrdersQuery, useGetSingleOrderQuery, useGetAllOrdersQuery, useUpdateOrderMutation } = orderApi;
