@@ -1,11 +1,10 @@
-import { useGetAllProductsQuery } from "../../features/product/productApi";
 import ProductLoaders from "../loaders/ProductLoaders";
 import Product from "./Product";
 
-const Products = ({ title, products, column }) => {
+const Products = ({ title, products, column, isLoading }) => {
   let columnStyle = column ? `lg:grid-cols-${column}` : `lg:grid-cols-3`;
 
-  const { data: productsArray, isLoading } = useGetAllProductsQuery();
+  
 
   return (
     <div className="container pb-16">
@@ -18,7 +17,7 @@ const Products = ({ title, products, column }) => {
           <div className={`grid ${columnStyle} sm:grid-cols-2 gap-6`}>
             {/* <!-- single product --> */}
             {
-              productsArray?.map((product, key) => (
+              products?.map((product, key) => (
                 <Product key={key} product={product} />
               ))
             }

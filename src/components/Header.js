@@ -150,18 +150,18 @@ const Header = () => {
                 >
                   Shop
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  to="/about"
                   className="text-gray-200 hover:text-white transition"
                 >
                   About us
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/contact"
                   className="text-gray-200 hover:text-white transition"
                 >
                   Contact us
-                </a>
+                </Link>
               </div>
 
                 {!user && <Link

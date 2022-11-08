@@ -1,6 +1,7 @@
 // public routes
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
+import Contact from "../pages/Contact";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
@@ -67,6 +68,11 @@ export const routes = [
   {
     path: "/register",
     element: Register,
+    role: ["*"],
+  },
+  {
+    path: "/contact",
+    element: Contact,
     role: ["*"],
   },
   // auth routes

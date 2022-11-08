@@ -1,4 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useGetAllCategoriesQuery } from "../../features/category/categoryApi";
+import { added } from "../../features/filters/productFilterSlice";
+
 const ProductFilter = () => {
+  const { data: categories } = useGetAllCategoriesQuery();
+  
+  const dispatch = useDispatch();
+
+  // fileter by category
+
+  const { categores: selectedCategories } = useSelector(state => state.productFilter);
+  const categoryFilterHandler = (category) => {
+    dispatch(added(category));
+  }
+
+  console.log(selectedCategories);
+
   return (
     <div className="col-span-1 bg-white px-4 pt-4 pb-6 shadow rounded overflow-hidden absolute lg:static left-4 top-16 z-10 w-72 lg:w-full lg:block">
       <div className="divide-gray-200 divide-y space-y-5 relative">
@@ -12,65 +29,26 @@ const ProductFilter = () => {
           </h3>
           <div className="space-y-2">
             {/* <!-- single category --> */}
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="Bedroom"
-                className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
-              <label
-                htmlFor="Bedroom"
-                className="text-gray-600 ml-3 cursor-pointer"
-              >
-                Bedroom
-              </label>
-              <div className="ml-auto text-gray-600 text-sm">(15)</div>
-            </div>
+            {
+              categories && categories.map((category, key) => (
+                <div className="flex items-center">
+                  <input
+                    onChange={() => categoryFilterHandler(category)}
+                    type="checkbox"
+                    id={category._id}
+                    className="text-primary focus:ring-0 rounded-sm cursor-pointer"
+                  />
+                  <label
+                    htmlFor={category._id}
+                    className="text-gray-600 ml-3 cursor-pointer"
+                  >
+                    {category.name}
+                  </label>
+                </div>
+              ))
+            }
+            
 
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="Sofa"
-                className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
-              <label
-                htmlFor="Sofa"
-                className="text-gray-600 ml-3 cursor-pointer"
-              >
-                Sofa
-              </label>
-              <div className="ml-auto text-gray-600 text-sm">(05)</div>
-            </div>
-
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="Office"
-                className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
-              <label
-                htmlFor="Office"
-                className="text-gray-600 ml-3 cursor-pointer"
-              >
-                Office
-              </label>
-              <div className="ml-auto text-gray-600 text-sm">(09)</div>
-            </div>
-
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="Outdoor"
-                className="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
-              <label
-                htmlFor="Outdoor"
-                className="text-gray-600 ml-3 cursor-pointer"
-              >
-                Outdoor
-              </label>
-              <div className="ml-auto text-gray-600 text-sm">(19)</div>
-            </div>
             {/* <!-- single category end --> */}
           </div>
         </div>

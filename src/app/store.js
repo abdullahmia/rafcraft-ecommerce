@@ -5,6 +5,7 @@ import { apiSlice } from '../features/api/apiSlice';
 import authReducer from '../features/auth/authSlice';
 import cartReducer from '../features/cart/cartSlice';
 import selectCategoryReducer from '../features/category/CategorySlice';
+import productFilterReducer from '../features/filters/productFilterSlice';
 
 const persistConfig = {
     key: 'root',
@@ -18,7 +19,8 @@ export const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
         auth: authReducer,
         selectCategory: selectCategoryReducer,
-        cart: persistedReducer
+        cart: persistedReducer,
+        productFilter: productFilterReducer
     },
     devTools: true,
     middleware: (getDefaultMiddlewares) => getDefaultMiddlewares({
